@@ -8,8 +8,9 @@ import (
 var (
 	ErrUserNotFound      = errors.New("user not found")
 	ErrUserAlreadyExists = errors.New("username already taken")
-	ErrInvalidPassword   = errors.New("invalid password")
+	ErrInvalidLogin      = errors.New("invalid login")
 	ErrUnauthorized      = errors.New("unauthorized")
 	ErrForbidden         = errors.New("forbidden")
 	ErrInvalidInput      = errors.New("invalid input")
+	ErrInvalidToken      = errors.New("invalid token")
 )
