@@ -38,3 +38,11 @@ func AuthMiddleware(auth service.AuthService) func(http.Handler) http.Handler {
 		})
 	}
 }
+
+func ClaimsFromContext(ctx context.Context) (*service.Claims, bool) {
+	claims, ok := ctx.Value(claimsKey).(*service.Claims)
+	if !ok || claims == nil {
+		return nil, false
+	}
+	return claims, true
+}
