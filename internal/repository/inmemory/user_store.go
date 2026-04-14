@@ -75,7 +75,7 @@ func (s *Store) FindByID(ctx context.Context, id string) (*domain.User, error) {
 	}
 
 	user, ok := s.users[id]
-	if ok != true {
+	if !ok {
 		return nil, domain.ErrUserNotFound
 	}
 
