@@ -27,7 +27,7 @@ type LoginRequest struct {
 	Password string `json:"password"`
 }
 
-func (h *AuthHandler) RegisterHandler(w http.ResponseWriter, r *http.Request) {
+func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
 	var payload RegisterRequest
 	if err := readJSON(r, &payload); err != nil {
 		writeError(w, http.StatusBadRequest, "bad request")
