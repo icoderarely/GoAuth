@@ -37,7 +37,14 @@ func NewAuthService(userRepo repository.UserRepository, jwtSecret string, tokenT
 	}
 }
 
-func (s *AuthServiceImpl) Register(ctx context.Context, username, password string) (*domain.User, error) {
+type UserResponse struct {
+	ID        string      `json:"id"`
+	Username  string      `json:"username"`
+	Role      domain.Role `json:"role"`
+	CreatedAt time.Time   `json:"created_at"`
+}
+
+func (s *AuthServiceImpl) Register(ctx context.Context, username, password string) (*UserResponse, error) {
 	// bcrypt hash + repo.Save
 
 	if username == "" {
@@ -58,10 +65,14 @@ func (s *AuthServiceImpl) Register(ctx context.Context, username, password strin
 		return nil, err
 	}
 
-	out := *user
-	out.PasswordHash = ""
+	resp := UserResponse{
+		ID:        user.ID,
+		Username:  user.Username,
+		Role:      user.Role,
+		CreatedAt: user.CreatedAt,
+	}
 
-	return &out, nil
+	return &resp, nil
 }
 
 func (s *AuthServiceImpl) Login(ctx context.Context, username, password string) (token string, err error) {

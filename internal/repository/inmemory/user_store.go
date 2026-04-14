@@ -81,3 +81,15 @@ func (s *Store) FindByID(ctx context.Context, id string) (*domain.User, error) {
 
 	return cloneUser(user), nil
 }
+
+func (s *Store) SetRole(ctx context.Context, userID string, role domain.Role) error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	user, ok := s.users[userID]
+	if !ok {
+		return domain.ErrUserNotFound
+	}
+	user.Role = role
+	return nil
+}
